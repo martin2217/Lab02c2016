@@ -9,6 +9,7 @@ public class MainActivity extends AppCompatActivity {
     private ElementoMenu[] listaPlatos;
     private ElementoMenu[] listaPostre;
 
+    // TODO Continuar el lunes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
