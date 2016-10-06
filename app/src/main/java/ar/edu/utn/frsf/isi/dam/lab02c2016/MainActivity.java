@@ -2,8 +2,11 @@ package ar.edu.utn.frsf.isi.dam.lab02c2016;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -11,11 +14,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private ElementoMenu[] listaBebidas;
     private ElementoMenu[] listaPlatos;
     private ElementoMenu[] listaPostre;
+    private ElementoMenu[] listaActual;
 
     /*
      * Declaración de objetos de la vista
@@ -31,15 +38,18 @@ public class MainActivity extends AppCompatActivity {
     private Button boton1;
     private Button boton2;
     private Button boton3;
+    private ListView listView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        iniciarListas();
+
         toggleBtn = (ToggleButton) findViewById(R.id.toggleButton);
         spinner = (Spinner) findViewById(R.id.spinner);
-        switch1 = (Switch) findViewById(R.id.switch1);
+        //switch1 = (Switch) findViewById(R.id.switch1);
         textView = (TextView) findViewById(R.id.textView4);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(handler_radioGroup);
@@ -52,16 +62,63 @@ public class MainActivity extends AppCompatActivity {
         boton1.setOnClickListener(listener_boton2);
         boton3 = (Button) findViewById(R.id.button3);
         boton1.setOnClickListener(listener_boton3);
+        listView1 = (ListView) findViewById(R.id.listView);
+
+        // Propiedad de scrolling para el textView
+        textView.setMovementMethod(new ScrollingMovementMethod());
 
 
+
+
+        // Llenado del spinner de horarios
+        ArrayAdapter<CharSequence> adapter_horarios=
+                ArrayAdapter.createFromResource(this,
+                        R.array.horarios,
+                        android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter_horarios);
+        /*
+         * Alternativa
+        final String[] horarios = new String[]{"20:00", "20:30", "21:00", "21:30", "22:00"};
+        ArrayAdapter<String> adapter_horarios =
+                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, horarios);
+        spinner.setAdapter(adapter_horarios);
+        */
     }
 
+    // Manejador del radioGroup
     RadioGroup.OnCheckedChangeListener handler_radioGroup = new RadioGroup.OnCheckedChangeListener(){
+        @Override
         public void onCheckedChanged(RadioGroup group, int checkedId){
-            // TODO Ver que opción esta seleccionada
-            // TODO Cambiar los elementos del adapter
+            switch (checkedId){
+                case -1:
+                    break;
+                case R.id.radioBtn1:
+                    listaActual=listaPlatos;
+                    break;
+                case R.id.radioBtn2:
+                    listaActual=listaPostre;
+                    break;
+                case R.id.radioBtn3:
+                    listaActual=listaBebidas;
+                    break;
+            }
+            
+            ArrayAdapter<ElementoMenu> adapter_radio = new ArrayAdapter<ElementoMenu>(MainActivity.this, android.R.layout.simple_list_item_single_choice, listaActual);
+            listView1.setAdapter(adapter_radio);
         }
     };
+
+
+    private TextView selection;
+    private static final String[] items = {"lorem", "ipsum", "purus"};
+    /*setListAdapter(new ArrayAdapter<String>(this, R.layout.fil, R.id.label, items));
+    selection=(TextView)
+
+    findViewById(R.id.selection);
+
+    public void onListItemClick(ListViewparent, View v, intposition, longid) {
+        selection.setText(items[position]);
+    }*/
 
     /*
      * Listener de botones
