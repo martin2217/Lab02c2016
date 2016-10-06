@@ -2,6 +2,14 @@ package ar.edu.utn.frsf.isi.dam.lab02c2016;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -9,13 +17,74 @@ public class MainActivity extends AppCompatActivity {
     private ElementoMenu[] listaPlatos;
     private ElementoMenu[] listaPostre;
 
-    // TODO Continuar el lunes
+    /*
+     * Declaración de objetos de la vista
+     */
+    private ToggleButton toggleBtn;
+    private Spinner spinner;
+    private Switch switch1;
+    private TextView textView;
+    private RadioGroup radioGroup;
+    private RadioButton radioBtn1;
+    private RadioButton radioBtn2;
+    private RadioButton radioBtn3;
+    private Button boton1;
+    private Button boton2;
+    private Button boton3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toggleBtn = (ToggleButton) findViewById(R.id.toggleButton);
+        spinner = (Spinner) findViewById(R.id.spinner);
+        switch1 = (Switch) findViewById(R.id.switch1);
+        textView = (TextView) findViewById(R.id.textView4);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(handler_radioGroup);
+        radioBtn1 = (RadioButton) findViewById(R.id.radioBtn1);
+        radioBtn2 = (RadioButton) findViewById(R.id.radioBtn2);
+        radioBtn3 = (RadioButton) findViewById(R.id.radioBtn3);
+        boton1 = (Button) findViewById(R.id.button);
+        boton1.setOnClickListener(listener_boton1);
+        boton2 = (Button) findViewById(R.id.button2);
+        boton1.setOnClickListener(listener_boton2);
+        boton3 = (Button) findViewById(R.id.button3);
+        boton1.setOnClickListener(listener_boton3);
+
+
     }
+
+    RadioGroup.OnCheckedChangeListener handler_radioGroup = new RadioGroup.OnCheckedChangeListener(){
+        public void onCheckedChanged(RadioGroup group, int checkedId){
+            // TODO Ver que opción esta seleccionada
+            // TODO Cambiar los elementos del adapter
+        }
+    };
+
+    /*
+     * Listener de botones
+     *      Agregar
+     *      Confirmar
+     *      Reiniciar
+     */
+    View.OnClickListener listener_boton1 = new View.OnClickListener() {
+        public void onClick(View v) {
+            // TODO btn1
+        }
+    };
+    View.OnClickListener listener_boton2 = new View.OnClickListener() {
+        public void onClick(View v) {
+            // TODO btn2
+        }
+    };
+    View.OnClickListener listener_boton3 = new View.OnClickListener() {
+        public void onClick(View v) {
+            // TODO btn3
+        }
+    };
+
 
 
     private void iniciarListas() {
