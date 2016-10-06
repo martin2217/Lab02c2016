@@ -57,6 +57,6 @@ public class ElementoMenu {
     }
 
     @Override public String toString() {
-        return this.nombre+ "( "+f.format(this.precio)+")";
+        return this.nombre+ " ("+f.format(this.precio)+")";
     }
 }
